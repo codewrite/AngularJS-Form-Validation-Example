@@ -1,0 +1,122 @@
+﻿@{
+	ViewBag.Title = "Index";
+	ViewBag.ngController = "FormValidationController";
+}
+
+<h2>Index</h2>
+
+@*
+
+	How to implement validation:
+	1. Make sure you have a form with a name (you can have more than one form on the page if you wish).
+	2. Make sure the form has class="validateForm" and the "novalidate" attribute.
+	3. Use any of the following HTML5 or AngularJS validation attributes on input fields:
+	  a) email
+	  b) max
+	  c) maxlength
+	  d) min
+	  e) minlength
+	  f) number
+	  g) pattern
+	  h) required
+	  i) url
+	  j) date
+	  k) datetimelocal
+	  l) time
+	  m) week
+	  n) month
+	* The most useful of these are probably:
+	   i) required
+	  ii) pattern
+	* You can create your own validation token (as a directive), but this will probably be unnecessary.
+	4. Add the following elements where you want to display an error message:
+	  <vdt-message control="borrowersForm.txtName" type="required" message="Name is required (Borrowers)" ng-cloak></vdt-message>
+	Where:
+	  a) control is the form control name.
+	  b) type is from the list of validation attributes above.
+	  c) message is what you want to display.
+	5. In your "save" function do something like the following:
+		$scope.save = function () {
+			if ($scope.myForm.$invalid) {
+				Validation.setAllFieldsDirty($scope.myForm);
+				return;
+			}
+			//TODO: At this point we know the form is valid and we can call the server to save the form data.
+		}
+*@
+
+<div class="tab-pane">
+
+	<form name="JonsForm" class="validateForm" novalidate>
+
+		<div class="row">
+			<div class="col-md-6">
+				<label class="control-label" for="txtName">Name:</label>
+				<input id="txtName" name="txtName" type="text" ng-value="Name" placeholder="Enter name" class="form-control input-md" required />
+			</div>
+			<div class="col-md-6">
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<label class="control-label" for="txtPortfolio">Postcode:</label>
+				<input id="txtPostcode" name="txtPortfolio" type="text" ng-value="Postcode" placeholder="Enter Postcode" class="form-control input-md" required pattern="[a-zA-Z]{1,2}[0-9]{1,2}\s+[0-9]{1,2}[a-zA-Z]{1,2}" />
+			</div>
+			<div class="col-md-6">
+			</div>
+		</div>
+
+		<div id="errorBox" class="alert alert-danger" ng-show="getNumberOfErrors() > 0" ng-cloak>
+			Please correct the following errors in order to be able to save your changes
+		</div>
+
+		<vdt-message control="JonsForm.txtPostCode" type="required" message="Postcode is required" ng-cloak></vdt-message>
+		<vdt-message control="JonsForm.txtPostCode" type="pattern" message="Postcode is invalid" ng-cloak></vdt-message>
+
+		<br />
+
+		<div class="row">
+			<div class="col-md-6">
+				<input type="Button" class="btn btn-primary" ng-click="save()" value="Save" />&nbsp;
+				<input type="Button" class="btn btn-warning" onclick="window.location.href='../../somePage'" value="Cancel" />&nbsp;
+			</div>
+		</div>
+
+	</form>
+
+</div>
+
+
+<script type="text/javascript">
+	"use strict";
+
+	app.controller('@ViewBag.ngController', ['$scope', '$http', '$sce', '$window', 'Validation',
+
+		function ($scope, $http, $sce, $window, Validation) {
+
+			$scope.getNumberOfErrors = function () {
+				var num = 0;
+				num += Validation.invalidAndDirtyCount($scope.JonsForm);
+				return num;
+			}
+
+			$scope.save = function () {
+
+				var valid = true;
+				if ($scope.JonsForm.$invalid) {
+					Validation.setAllFieldsDirty($scope.JonsForm);
+					valid = false;
+				}
+				if (!valid) {
+					return;
+				}
+
+				alert("Record Would be Saved");
+			}
+
+		}
+
+	]);
+
+</script>

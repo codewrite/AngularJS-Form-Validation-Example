@@ -1,0 +1,12 @@
+﻿<!DOCTYPE html>
+<html lang="en" @Html.Raw(" ng-app=\"App\"")>
+<head>
+	@Html.Partial("_Head")
+	@RenderSection("Head", required: false)
+</head>
+<body@(ViewBag.ngController != null ? @Html.Raw(" ng-controller=\"" + @ViewBag.ngController + "\"") : "")>
+	<div class="container">
+		@RenderBody()
+	</div>
+</body>
+</html>
