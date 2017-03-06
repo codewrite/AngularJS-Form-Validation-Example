@@ -52,7 +52,7 @@
 		<div class="row">
 			<div class="col-md-6">
 				<label class="control-label" for="txtName">Name:</label>
-				<input id="txtName" name="txtName" type="text" ng-value="Name" placeholder="Enter name" class="form-control input-md" required />
+				<input id="txtName" name="txtName" type="text" ng-model="Name" placeholder="Enter name" class="form-control input-md" required />
 			</div>
 			<div class="col-md-6">
 			</div>
@@ -61,25 +61,28 @@
 		<div class="row">
 			<div class="col-md-6">
 				<label class="control-label" for="txtPortfolio">Postcode:</label>
-				<input id="txtPostcode" name="txtPortfolio" type="text" ng-value="Postcode" placeholder="Enter Postcode" class="form-control input-md" required pattern="[a-zA-Z]{1,2}[0-9]{1,2}\s+[0-9]{1,2}[a-zA-Z]{1,2}" />
+				<input id="txtPostcode" name="txtPostcode" type="text" ng-model="Postcode" placeholder="Enter Postcode" class="form-control input-md" required pattern="[a-zA-Z]{1,2}[0-9]{1,2}\s+[0-9]{1,2}[a-zA-Z]{1,2}" />
 			</div>
 			<div class="col-md-6">
 			</div>
 		</div>
 
+		<br/>
+
 		<div id="errorBox" class="alert alert-danger" ng-show="getNumberOfErrors() > 0" ng-cloak>
 			Please correct the following errors in order to be able to save your changes
 		</div>
 
-		<vdt-message control="JonsForm.txtPostCode" type="required" message="Postcode is required" ng-cloak></vdt-message>
-		<vdt-message control="JonsForm.txtPostCode" type="pattern" message="Postcode is invalid" ng-cloak></vdt-message>
+		<vdt-message control="JonsForm.txtName" type="required" message="Name is required" ng-cloak></vdt-message>
+		<vdt-message control="JonsForm.txtPostcode" type="required" message="Postcode is required" ng-cloak></vdt-message>
+		<vdt-message control="JonsForm.txtPostcode" type="pattern" message="Postcode is invalid" ng-cloak></vdt-message>
 
 		<br />
 
 		<div class="row">
 			<div class="col-md-6">
 				<input type="Button" class="btn btn-primary" ng-click="save()" value="Save" />&nbsp;
-				<input type="Button" class="btn btn-warning" onclick="window.location.href='../../somePage'" value="Cancel" />&nbsp;
+				<input type="Button" class="btn btn-warning" onclick="window.location.href=''" value="Cancel" />&nbsp;
 			</div>
 		</div>
 
